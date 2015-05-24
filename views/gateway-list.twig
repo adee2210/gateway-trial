@@ -1,0 +1,10 @@
+{% include "header.twig" %}
+<fieldset>
+<legend>Welcome to Adee2210 Gateway!</legend>
+<ol>
+{% for gateway, gatename in gateways %}
+<li><a href="/nspace/index.php/{{ gateway }}">{{ gatename }}</a></li>
+{% endfor %}
+</ol>
+</fieldset>
+{% include "footer.twig" %}

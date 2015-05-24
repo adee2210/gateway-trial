@@ -1,0 +1,19 @@
+fieldset {width: 47%;float:left;}
+ul {
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+label{
+	display: inline-block;
+	width: 200px;
+}
+p {margin:5px 0;}
+.description{
+	background: none repeat scroll 0 0 #DDDDDD;
+	border: 1px solid #AAAAAA;
+	font-size: 12px;
+	width:500px;
+}
+.clear {clear:both;}
+textarea {width:98%;height:300px;}

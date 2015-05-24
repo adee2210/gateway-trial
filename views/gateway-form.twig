@@ -1,0 +1,71 @@
+{% include "header.twig" %}
+<fieldset>
+<legend>Welcome to {{name}} ({{service}})!</legend>
+<form method="post">
+<ul>
+{% for key, field in fields %}
+		{% if field is iterable %}
+		<li>
+			{% for i in 1..2 %}
+			<fieldset>
+				<legend>Item no {{i}}</legend>
+				<ul>
+					<li>
+					{% for subfield in field %}
+						<p>
+							<label for="{{subfield}}">{{ subfield }}{% if optional is iterable and subfield not in optional %}<span class="require">*</span>{% endif %}</label>
+							{% if vars[subfield].type is defined %}
+								{% if vars[subfield].type == "select" %}
+									<select name="{{ key }}[{{ i }}][{{ subfield|replace({'.':'_'}) }}]" id="{{ subfield }}">
+									{% for default in vars[subfield].default %}
+										<option value="{{ loop.index }}">{{ default }}</option>
+									{% endfor %}
+									</select>
+								{% else %}
+									<input name="{{ key }}[{{ i }}][{{ subfield|replace({'.':'_'}) }}]" id="{{subfield}}" type="{{ vars[subfield].type }}" value="{% if post is defined %}{{ post[ key ][ i ][subfield|replace({'.':'_'})] }}{% endif %}"{% if vars[subfield]['disable'] %} disabled="disabled"{% endif %}{% if vars[subfield]['max'] matches '/^\\d+$/' %} maxlength="{{ vars[subfield]['max'] }}"{% endif %}/>
+								{% endif %}
+							{% endif %}
+						<p>
+						{% if vars[subfield].description is defined %}<p class="description">{{vars[subfield].description}}</p>{% endif %}
+					{% endfor %}
+					</li>
+				</ul>
+			</fieldset>
+			{% endfor %}
+		</li>
+		{% else %}
+		<li>
+			<p>
+				<label for="{{field}}">{{ field }}{% if optional is iterable and field not in optional %}<span class="require">*</span>{% endif %}</label>
+				{% if vars[field].type is defined %}
+					{% if vars[field].type == "select" %}
+						<select name="{{ field|replace({'.':'_'}) }}" id="{{ field }}">
+						{% for default in vars[field].default %}
+							<option value="{{ loop.index }}">{{ default }}</option>
+						{% endfor %}
+						</select>
+					{% else %}
+						<input name="{{ field|replace({'.':'_'}) }}" id="{{field}}" type="{{ vars[field].type }}" value="{% if post is defined %}{{ post[field|replace({'.':'_'})] }}{% endif %}"{% if vars[field]['disable'] %} disabled="disabled"{% endif %}{% if vars[field]['max'] matches '/^\\d+$/' %} maxlength="{{ vars[field]['max'] }}"{% endif %}/>
+					{% endif %}
+				{% endif %}
+			</p>
+			{% if vars[field].description is defined %}<p class="description">{{vars[field].description}}</p>{% endif %}
+		</li>
+		{% endif %}
+{% endfor %}
+<ul>
+<p class="clear"><label>&nbsp;</label><input type="submit" name="submit" value="Execute"/> <input type="button" onclick="location.href='{{ app.request.getBaseURL() }}/{{gateway}}'" value="Back"/></p>
+</form>
+</fieldset>
+{% if request is defined %}
+<fieldset>
+<legend>Response</legend>
+<h3>Sent Param</h3>
+<textarea>{{ request.send }}</textarea>
+<h3>Sent URL</h3>
+{{ request.url }}
+<h3>Response</h3>
+<textarea>{{ request.reponse }}</textarea>
+</fieldset>
+{% endif %}
+{% include "footer.twig" %}
