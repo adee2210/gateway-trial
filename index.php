@@ -1,11 +1,5 @@
 <?php
 	require __DIR__.'/vendor/autoload.php';
-
-	include "vendor/Adee2210/Common/src/GatewayCore.php";
-	include "vendor/Adee2210/Common/src/GatewayTemplate.php";
-	include "vendor/Adee2210/Netbanx/src/Gateway.php";
-	include "vendor/Adee2210/Omnitest/src/Gateway.php";
-	//include "vendor/Adee2210/Reliafund/src/Gateway.php";
 	
 	$app = new Silex\Application();
 	$app->register(new Silex\Provider\SessionServiceProvider());
