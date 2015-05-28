@@ -9,6 +9,6 @@
 </li>
 {% endfor %}
 </ul>
-<p><label>&nbsp;</label><input type="button" onclick="location.href='{{ app.request.getBaseURL() }}'" value="Back"/></p>
+<p><label>&nbsp;</label><input type="button" onclick="location.href='{{ app.request.getBaseURL()|trim('index.php') }}'" value="Back"/></p>
 </fieldset>
 {% include "footer.twig" %}
