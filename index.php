@@ -9,11 +9,13 @@
 
 	$app->get('/', function () use ($app) {
 		$gateway = array();
-		foreach(get_declared_classes() as $namespace)
-			if(preg_match('/^Adee2210\\\\(?<name>[A-Za-z]+)\\\\Gateway$/',$namespace,$match)){
-				if($gateobj = new $namespace)
-					$gateway[strtolower($match['name'])] = $gateobj->getName();
-			}
+		$packages = json_decode(file_get_contents(__DIR__.'/composer.json'));
+		foreach($packages->require as $package => $version)
+			if(preg_match('/^adee2210\/(?<name>[a-z]+)$/',$package,$match))
+				if($match['name']!='common') {
+					$gateway[$match['name']] = ucfirst($match['name']);
+				}
+		
 		return $app['twig']->render('gateway-list.twig', array(
 			'gateways' => $gateway,
 		));
