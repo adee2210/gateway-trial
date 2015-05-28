@@ -12,7 +12,7 @@
 		$packages = json_decode(file_get_contents(__DIR__.'/composer.json'));
 		foreach($packages->require as $package => $version)
 			if(preg_match('/^adee2210\/(?<name>[a-z]+)$/',$package,$match))
-				if($match['name']!='common') {
+				if(file_exists(__DIR__.'/vendor/adee2210/'.$match['name'].'/src/Gateway.php')) {
 					$gateway[$match['name']] = ucfirst($match['name']);
 				}
 		
