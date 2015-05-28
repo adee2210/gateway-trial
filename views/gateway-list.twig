@@ -3,7 +3,7 @@
 <legend>Welcome to Adee2210 Gateway!</legend>
 <ol>
 {% for gateway, gatename in gateways %}
-<li><a href="{{ app.request.getBaseURL()|trim('index.php') }}/index.php/{{ gateway }}">{{ gatename }}</a></li>
+<li><a href="{{ app.request.getBaseURL()|trim('/index.php') }}/index.php/{{ gateway }}">{{ gatename }}</a></li>
 {% endfor %}
 </ol>
 </fieldset>
