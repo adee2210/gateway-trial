@@ -7,7 +7,6 @@
         }
     ],
     "require": {
-	"adee2210/common": "dev-master",
 	"adee2210/omnitest": "dev-master",
         "silex/silex": "~1.1",
         "symfony/browser-kit": "~2.3",
